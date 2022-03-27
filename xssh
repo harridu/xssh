@@ -1,0 +1,29 @@
+xssh() {
+	local ssh_command="ssh -XAf"
+	local xterm=xterm
+	local host=""
+	local usage="Usage: xssh [-l login] hostname [command ...]"
+
+	while test $# -gt 0; do
+		case "$1" in
+			-l)
+				shift
+				test $# -le 0 && echo "${usage}" 1>&2 && return 1
+				ssh_command="${ssh_command} -l ${1}"
+				shift
+				;;
+			-*)
+				echo "${usage}" 1>&2 && return 1
+				;;
+			*)
+				host=${1}
+				shift
+				break
+				;;
+		esac
+	done
+	test -z "${host}" && echo "${usage}" 1>&2 && return 1
+	test $# -eq 0 && set ${xterm} -T "${host}"
+
+	nohup ${ssh_command} ${host} "$@"
+}
