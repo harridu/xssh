@@ -25,5 +25,5 @@ xssh() {
 	test -z "${host}" && echo "${usage}" 1>&2 && return 1
 	test $# -eq 0 && set ${xterm} -T "${host}"
 
-	nohup ${ssh_command} ${host} "$@"
+	${ssh_command} ${host} "$@"
 }
