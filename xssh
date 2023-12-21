@@ -1,5 +1,5 @@
 xssh() {
-	local ssh_command="ssh -XAf"
+	local ssh_command="ssh -Xf"
 	local xterm=xterm
 	local host=""
 	local usage="Usage: xssh [-l login] hostname [command ...]"
