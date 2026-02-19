@@ -2,7 +2,7 @@ xssh() {
 	local ssh_command="ssh -Xf"
 	local xterm=xterm
 	local host=""
-	local usage="Usage: xssh [-l login] hostname [command ...]"
+	local usage="Usage: xssh [-l login] [-4|-6] hostname [command ...]"
 
 	while test $# -gt 0; do
 		case "$1" in
@@ -10,6 +10,10 @@ xssh() {
 				shift
 				test $# -le 0 && echo "${usage}" 1>&2 && return 1
 				ssh_command="${ssh_command} -l ${1}"
+				shift
+				;;
+			-4|-6)
+				ssh_command="${ssh_command} ${1}"
 				shift
 				;;
 			-*)
